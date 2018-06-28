@@ -12,6 +12,7 @@ const monthlyPlan = 'plan_D4NS6lEFYJPcE5';
 const yearPlan = 'plan_D4l04ELIRwVXtJ';
 const endpointSecret = 'whsec_SoEc8oRrB8Xsou9WSAswwHDu3ZvDDXgV';
 let log = '';
+var port = process.env.PORT || 8080;
 app.post('/payment', (req, res) => {
 	console.log(req.body.stripeToken);
 	log += req.body.stripeToken + '<br>';
@@ -62,6 +63,6 @@ app.get('/', (req, res) => {
 	res.send(log);
 })
 
-app.listen(80, () => {
-	console.log('Listen on port 80');
+app.listen(port, () => {
+	console.log(`Listen on port ${port}`);
 })
