@@ -11,9 +11,10 @@ const amount = 10000;
 const monthlyPlan = 'plan_D4NS6lEFYJPcE5';
 const yearPlan = 'plan_D4l04ELIRwVXtJ';
 const endpointSecret = 'whsec_SoEc8oRrB8Xsou9WSAswwHDu3ZvDDXgV';
-
+let log = '';
 app.post('/payment', (req, res) => {
 	console.log(req.body.stripeToken);
+	log += req.body.stripeToken + '<br>';
 	// stripe.charges.create({
  //  		amount: parseInt(req.body.amount),
  //  		description: "Test Payment Single",
@@ -23,6 +24,7 @@ app.post('/payment', (req, res) => {
 	// .then(charge => {
 	// 	console.log(charge);
 	// });
+	res.send('success');
 })
 
 app.post('/stripe/webhook', (req, res) => {
@@ -30,17 +32,19 @@ app.post('/stripe/webhook', (req, res) => {
 
 	try {
 		let event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+		log += event + '<br>';
 		console.log(event);
 	}
 	catch (err) {
 		console.log(err);
+		log += err + '<br>';
 		res.status(400).end()
 	}
 
 	res.json({received: true});
 })
 
-app.post('/premium', () => {
+app.post('/premium', (req, res) => {
 	stripe.customers.create({
 		email: req.body.stripeEmail,
 		source: req.body.stripeToken,
@@ -51,6 +55,11 @@ app.post('/premium', () => {
 			items: [{plan: req.body.typePremium === 'month' ? monthlyPlan : yearPlan }],
 		});
 	}).then(charge => console.log(charge))
+})
+
+app.get('/', (req, res) => {
+	console.log(log);
+	res.send(log);
 })
 
 app.listen(8888, () => {
