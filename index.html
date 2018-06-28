@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test Stripe</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+
+	<ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" href="#home">Payment</a></li>
+		<li><a data-toggle="tab" href="#menu1">Premium</a></li>
+		<li><a data-toggle="tab" href="#menu2">Extend</a></li>
+		<li><a data-toggle="tab" href="#menu3">Cancel</a></li>
+	</ul>
+
+	<div class="tab-content">
+	<div id="home" class="tab-pane fade in active">
+		<h3>Payment</h3>
+		<form action="http://localhost:8888/payment" method="POST">
+		 	<input type="radio" name="amount" value="500" checked> 5<br>
+		  	<input type="radio" name="amount" value="1000"> 10<br>
+			<script
+				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+				data-key="pk_test_oysXEoRUM0ME2hYA5eX27Izx"
+				data-amount='100'
+				data-name="Demo Site"
+				data-description="Example charge"
+				data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+				data-locale="auto">
+			</script>
+		</form>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      	<h3>Premium</h3>
+		<form action="http://localhost:8888/premium" method="POST" class="form-group">
+		 	<input type="radio" name="typePremium" value="month" checked> Month<br>
+		  	<input type="radio" name="typePremium" value="year"> Year<br>
+			<script
+				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+				data-key="pk_test_oysXEoRUM0ME2hYA5eX27Izx"
+				data-amount="100"
+				data-name="Demo Site"
+				data-description="Example charge"
+				data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+				data-locale="auto">
+			</script>
+		</form>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      	<h3>Extend</h3>
+      	<form action="http://localhost:8888/extend" method="POST">
+			<script
+				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+				data-key="pk_test_oysXEoRUM0ME2hYA5eX27Izx"
+				data-amount="100"
+				data-name="Demo Site"
+				data-description="Example charge"
+				data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+				data-locale="auto">
+			</script>
+		</form>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      	<h3>Cancel</h3>
+      	<form action="http://localhost:8888/cancel" method="POST">
+			<script
+				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+				data-key="pk_test_oysXEoRUM0ME2hYA5eX27Izx"
+				data-amount="100"
+				data-name="Demo Site"
+				data-description="Example charge"
+				data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+				data-locale="auto">
+			</script>
+		</form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
