@@ -4,8 +4,6 @@ const stripe = require("stripe")('sk_test_N65dLunNo7MpkbkZylsOW7lI');
 const path = require('path');
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
 app.use(bodyParser.raw({type: '*/*'}));
 
 const amount = 10000;
