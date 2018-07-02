@@ -6,16 +6,15 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(bodyParser.raw({type: '*/*'}));
 
 const amount = 10000;
 const monthlyPlan = 'plan_D4NS6lEFYJPcE5';
 const yearPlan = 'plan_D4l04ELIRwVXtJ';
 const endpointSecret = 'whsec_SoEc8oRrB8Xsou9WSAswwHDu3ZvDDXgV';
-let log = '';
 var port = process.env.PORT || 8080;
 app.post('/payment', (req, res) => {
 	console.log(req.body.stripeToken);
-	log += req.body.stripeToken + '<br>';
 	// stripe.charges.create({
  //  		amount: parseInt(req.body.amount),
  //  		description: "Test Payment Single",
@@ -29,16 +28,15 @@ app.post('/payment', (req, res) => {
 })
 
 app.post('/stripe/webhook', (req, res) => {
+	console.log(req);
 	let sig = req.headers["stripe-signature"];
-
+	console.log(sig);
 	try {
 		let event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-		log += event + '<br>';
 		console.log(event);
 	}
 	catch (err) {
 		console.log(err);
-		log += err + '<br>';
 		res.status(400).end()
 	}
 
@@ -59,7 +57,6 @@ app.post('/premium', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-	console.log(log);
 	res.send(log);
 })
 
