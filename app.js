@@ -28,8 +28,8 @@ app.post('/payment', (req, res) => {
 })
 
 app.post('/stripe/webhook', (req, res) => {
-	console.log(req);
 	let sig = req.headers["stripe-signature"];
+	console.log(req.body);
 	console.log(sig);
 	try {
 		let event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
